@@ -1,0 +1,29 @@
+<resources>
+    <!-- Padding standaard schaal (Unit 3.3 patroon) -->
+    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_extra_large">32dp</dimen>
+
+    <!-- Knop hoogtes -->
+    <dimen name="button_height_large">56dp</dimen>
+
+    <!-- Afbeelding formaten -->
+    <dimen name="image_avatar">120dp</dimen>
+    <dimen name="image_card_thumbnail">80dp</dimen>
+    <dimen name="image_car_card">180dp</dimen>
+    <dimen name="image_car_form">160dp</dimen>
+    <dimen name="image_hero_height">220dp</dimen>
+
+    <!-- Hoek-radii -->
+    <dimen name="corner_small">8dp</dimen>
+    <dimen name="corner_medium">12dp</dimen>
+    <dimen name="corner_large">16dp</dimen>
+    <dimen name="corner_avatar">60dp</dimen>
+
+    <!-- Specifiek -->
+    <dimen name="feature_icon_size">48dp</dimen>
+    <dimen name="status_badge_padding_h">12dp</dimen>
+    <dimen name="status_badge_padding_v">6dp</dimen>
+</resources>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "554288386172",
+    "project_id": "rentacar-odisee",
+    "storage_bucket": "rentacar-odisee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554288386172:android:beaf7a7e80c952fed679f9",
+        "android_client_info": {
+          "package_name": "com.hssinouimohamedamine.rentacar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554288386172-5ascphoqc77gu1b3jbmtnhaj0icd8p2e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hssinouimohamedamine.rentacar",
+            "certificate_hash": "4e7d87b682442baa3893cb44c80ed56db20667d5"
+          }
+        },
+        {
+          "client_id": "554288386172-jj03i9poihtvr0a6dj0qjuisj710titi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9gGtr6TYV6PB0EYx3P00UBJ43EfgLif4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554288386172-jj03i9poihtvr0a6dj0qjuisj710titi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,147 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Rent-a-Car</string>
+    <string name="app_tagline_nl">De makkelijkste manier om een auto te huren in Europa</string>
+
+    <!-- Schermtitels -->
+    <string name="screen_login">Inloggen</string>
+    <string name="screen_locations">Locaties</string>
+    <string name="screen_booking">Boeking</string>
+    <string name="screen_my_bookings">Mijn reservaties</string>
+    <string name="screen_profile">Profiel</string>
+    <string name="screen_welcome">Welkom</string>
+    <string name="screen_reservation">Reservatie</string>
+
+    <!-- Welcome -->
+    <string name="welcome_title">Welkom bij Rent-a-Car</string>
+    <string name="welcome_cta">Aan de slag</string>
+    <string name="welcome_login_hint">Login met Google om te beginnen</string>
+    <string name="welcome_feature_1_title">Brede selectie</string>
+    <string name="welcome_feature_1_desc">15 voertuigen in 6 Belgische steden : Brussel, Antwerpen, Gent, Brugge, Leuven en Luik</string>
+    <string name="welcome_feature_2_title">Vind een vestiging</string>
+    <string name="welcome_feature_2_desc">Open Google Maps direct vanuit de app om de dichtstbijzijnde agent te vinden</string>
+    <string name="welcome_feature_3_title">Snel reserveren</string>
+    <string name="welcome_feature_3_desc">Boek je auto in enkele klikken en bekijk al je reservaties op één plek</string>
+
+    <!-- Login -->
+    <string name="login_button_google">Aanmelden met Google</string>
+    <string name="login_loading">Bezig met aanmelden...</string>
+    <string name="login_error_title">⚠ Login fout</string>
+    <string name="login_error_id_token_null">ID token null. Voeg de SHA-1 vingerafdruk van je debug keystore toe in Firebase Console.</string>
+    <string name="login_error_cancelled">Inloggen geannuleerd</string>
+    <string name="login_error_unexpected">Onverwachte fout bij inloggen</string>
+
+    <!-- Home -->
+    <string name="home_greeting">Hallo %1$s</string>
+    <string name="home_subtitle">Vind je perfecte auto</string>
+    <string name="home_default_username">gebruiker</string>
+    <string name="home_available_cars">Beschikbare wagens (%1$d)</string>
+    <string name="home_filter_all_cities">Alle steden</string>
+    <string name="home_filter_choose_city">Kies een stad om te filteren</string>
+    <string name="home_no_cars_in_city">Geen wagens beschikbaar in %1$s</string>
+
+    <!-- Common -->
+    <string name="action_back">Terug</string>
+    <string name="action_refresh_symbol">↻</string>
+    <string name="action_retry">Opnieuw proberen</string>
+    <string name="action_logout">Afmelden</string>
+    <string name="action_loading">Bezig met laden...</string>
+    <string name="action_save">Opslaan</string>
+
+    <!-- Errors -->
+    <string name="error_no_network">Geen netwerkverbinding</string>
+    <string name="error_server_code">Server fout: %1$d</string>
+    <string name="error_unknown_response">Server fout: kon antwoord niet verwerken</string>
+    <string name="error_not_logged_in">Niet ingelogd</string>
+    <string name="error_no_user_logged_in">Geen gebruiker ingelogd</string>
+
+    <!-- Booking edit + Share -->
+    <string name="booking_new_title">Nieuwe reservering</string>
+    <string name="booking_edit_title">Reservering bewerken</string>
+    <string name="edit_button_label">Bewerken</string>
+    <string name="share_button_label">Delen</string>
+    <string name="share_chooser_title">Reservering delen via</string>
+
+    <!-- Home filters (Brandstof + Transmissie + Sort + Wissen + Empty) -->
+    <string name="filter_fuel_label">Brandstof</string>
+    <string name="filter_transmission_label">Transmissie</string>
+    <string name="filter_fuel_benzine">Benzine</string>
+    <string name="filter_fuel_elektrisch">Elektrisch</string>
+    <string name="filter_fuel_hybride">Hybride</string>
+    <string name="filter_transmission_handgeschakeld">Handgeschakeld</string>
+    <string name="filter_transmission_automatisch">Automatisch</string>
+    <string name="filter_sort_label">Sorteren</string>
+    <string name="filter_sort_none">Geen sortering</string>
+    <string name="filter_sort_price_asc">Prijs: laag naar hoog</string>
+    <string name="filter_sort_price_desc">Prijs: hoog naar laag</string>
+    <string name="filter_clear">Filters wissen</string>
+    <string name="filter_empty_state">Geen auto\'s gevonden met deze filters</string>
+
+    <!-- Bottom navigation -->
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_locations">Vestigingen</string>
+    <string name="bottom_nav_bookings">Reservaties</string>
+    <string name="bottom_nav_profile">Profiel</string>
+
+    <!-- Car attributes (DB enum NL labels) -->
+    <string name="car_type_benzine">Benzine</string>
+    <string name="car_type_elektrisch">Elektrisch</string>
+    <string name="car_type_hybride">Hybride</string>
+    <string name="car_transmission_handgeschakeld">Handgeschakeld</string>
+    <string name="car_transmission_automatisch">Automatisch</string>
+
+    <!-- Locations -->
+    <string name="locations_header">Onze agentschappen (%1$d)</string>
+    <string name="locations_open_maps">Open in Google Maps</string>
+
+    <!-- Booking -->
+    <string name="booking_choose_period">Kies je periode</string>
+    <string name="booking_start_date_label">Startdatum</string>
+    <string name="booking_end_date_label">Einddatum</string>
+    <string name="booking_pick_start_date">Kies startdatum</string>
+    <string name="booking_pick_end_date">Kies einddatum</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Annuleren</string>
+    <string name="booking_invalid_dates">Ongeldige datums (gebruik YYYY-MM-DD, einddatum na startdatum)</string>
+    <string name="booking_days_count">Aantal dagen: %1$d</string>
+    <string name="booking_total_price">Totaal prijs: %1$s</string>
+    <!-- Het € teken zit nu in formatEurosFromString() output, dus alleen "/dag" hier -->
+    <string name="booking_price_per_day">%1$s /dag</string>
+    <string name="booking_date_in_past">Datum kan niet in het verleden zijn</string>
+    <string name="booking_duration_days">%1$d dagen</string>
+    <string name="mybookings_delete_short">Verwijder</string>
+    <string name="booking_confirm_button">Bevestig reservatie</string>
+    <string name="booking_submitting">Bezig met reservatie...</string>
+    <string name="booking_success_title">Reservatie bevestigd!</string>
+    <string name="booking_success_number">Reservatienummer: #%1$d</string>
+    <string name="booking_back_home">Terug naar Home</string>
+    <string name="booking_car_not_found">Auto niet gevonden</string>
+    <string name="booking_unknown_error">Onbekende fout bij reservatie</string>
+    <string name="booking_save_failed_check_list">Server fout: kon antwoord niet verwerken. Reservatie mogelijk wel gelukt — controleer Mijn reservaties.</string>
+
+    <!-- My Bookings -->
+    <string name="mybookings_header">Mijn boekingen (%1$d)</string>
+    <string name="mybookings_empty_title">Nog geen reservaties</string>
+    <string name="mybookings_empty_subtitle">Maak je eerste reservatie via het Home scherm</string>
+    <string name="mybookings_period">Periode: %1$s tot en met %2$s</string>
+    <string name="mybookings_total">Totaal: EUR %1$s</string>
+    <string name="mybookings_reservation_number">Reservatie #%1$d</string>
+    <string name="mybookings_status_active">Actief</string>
+    <string name="mybookings_status_future">Toekomstig</string>
+    <string name="mybookings_status_expired">Verlopen</string>
+    <string name="mybookings_delete_button">Verwijder reservatie</string>
+    <string name="mybookings_delete_confirm_question">Ben je zeker?</string>
+    <string name="mybookings_delete_confirm_yes">Bevestig</string>
+    <string name="mybookings_delete_confirm_no">Annuleer</string>
+    <string name="mybookings_delete_failed">Verwijderen mislukt</string>
+
+    <!-- Profile -->
+    <string name="profile_avatar_desc">Profielfoto</string>
+    <string name="profile_unknown_user">Onbekende gebruiker</string>
+    <string name="profile_unknown_email">Geen email</string>
+    <string name="profile_section_title">Account informatie</string>
+    <string name="profile_label_name">Naam</string>
+    <string name="profile_label_email">Email</string>
+    <string name="profile_label_uid">Firebase UID</string>
+    <string name="profile_label_dash">—</string>
+</resources>

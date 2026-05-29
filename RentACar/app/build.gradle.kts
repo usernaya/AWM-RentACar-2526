@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.hssinouimohamedamine.rentacar"
+    namespace = "be.rentacar"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.hssinouimohamedamine.rentacar"
+        applicationId = "be.rentacar"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

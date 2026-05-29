@@ -29,28 +29,35 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hssinouimohamedamine.rentacar.R
 import com.hssinouimohamedamine.rentacar.ui.mybookings.components.BookingCard
 
+// scherm Mijn reservaties
 @Composable
 fun MyBookingsScreen(
+    onEditBooking: (carId: Int, bookingId: Int) -> Unit,
     viewModel: MyBookingsViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     MyBookingsScreenContent(
         uiState = uiState,
-        onRefresh = { viewModel.refresh() }
+        onRefresh = { viewModel.refresh() },
+        onDelete = { viewModel.deleteBooking(it) },
+        onEditBooking = onEditBooking
     )
 }
 
 @Composable
 private fun MyBookingsScreenContent(
     uiState: MyBookingsUiState,
-    onRefresh: () -> Unit
+    onRefresh: () -> Unit,
+    onDelete: (Int) -> Unit,
+    onEditBooking: (carId: Int, bookingId: Int) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
+        // bovenbalk + refresh
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,27 +66,82 @@ private fun MyBookingsScreenContent(
         ) {
             Text(
                 text = stringResource(R.string.screen_my_bookings),
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.weight(1f)
             )
             TextButton(onClick = onRefresh) {
-                Text(text = stringResource(R.string.action_refresh_symbol))
+                Text(
+                    text = stringResource(R.string.action_refresh_symbol),
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.titleLarge
+                )
             }
         }
 
         when (uiState) {
-            is MyBookingsUiState.Loading -> CenterText(stringResource(R.string.action_loading))
-            is MyBookingsUiState.Error -> ErrorContent(uiState.message, onRefresh)
+            is MyBookingsUiState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(dimensionResource(R.dimen.padding_extra_large)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.action_loading),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
+
+            is MyBookingsUiState.Error -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(dimensionResource(R.dimen.padding_extra_large)),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = uiState.message,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(Modifier.height(dimensionResource(R.dimen.padding_medium)))
+                    Button(onClick = onRefresh) {
+                        Text(text = stringResource(R.string.action_retry))
+                    }
+                }
+            }
+
             is MyBookingsUiState.Success -> {
                 if (uiState.bookings.isEmpty()) {
-                    EmptyContent()
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(dimensionResource(R.dimen.padding_extra_large)),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.mybookings_empty_title),
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Spacer(Modifier.height(dimensionResource(R.dimen.padding_small)))
+                        Text(
+                            text = stringResource(R.string.mybookings_empty_subtitle),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                        )
+                    }
                 } else {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
-                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalArrangement = Arrangement.spacedBy(
+                            dimensionResource(R.dimen.padding_small) + 4.dp
+                        ),
                         contentPadding = PaddingValues(
                             bottom = dimensionResource(R.dimen.padding_medium)
                         )
@@ -97,7 +159,21 @@ private fun MyBookingsScreenContent(
                             )
                         }
                         items(items = uiState.bookings, key = { it.bookingId }) { booking ->
-                            BookingCard(booking = booking)
+                            BookingCard(
+                                booking = booking,
+                                onDeleteConfirmed = { onDelete(booking.bookingId) },
+                                onEditClicked = {
+                                    // carId kan null zijn (PHP JOIN)
+                                    if (booking.carId != null) {
+                                        onEditBooking(booking.carId!!, booking.bookingId)
+                                    } else {
+                                        android.util.Log.w(
+                                            "MyBookingsScreen",
+                                            "carId null voor booking #${booking.bookingId}"
+                                        )
+                                    }
+                                }
+                            )
                         }
                     }
                 }
@@ -106,54 +182,3 @@ private fun MyBookingsScreenContent(
     }
 }
 
-@Composable
-private fun CenterText(message: String) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = message, style = MaterialTheme.typography.bodyLarge)
-    }
-}
-
-@Composable
-private fun EmptyContent() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_extra_large)),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = stringResource(R.string.mybookings_empty_title),
-            style = MaterialTheme.typography.titleMedium
-        )
-        Spacer(Modifier.height(dimensionResource(R.dimen.padding_small)))
-        Text(
-            text = stringResource(R.string.mybookings_empty_subtitle),
-            style = MaterialTheme.typography.bodyMedium
-        )
-    }
-}
-
-@Composable
-private fun ErrorContent(message: String, onRetry: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensionResource(R.dimen.padding_extra_large)),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = message,
-            color = MaterialTheme.colorScheme.error,
-            style = MaterialTheme.typography.bodyLarge
-        )
-        Spacer(Modifier.height(dimensionResource(R.dimen.padding_medium)))
-        Button(onClick = onRetry) {
-            Text(text = stringResource(R.string.action_retry))
-        }
-    }
-}

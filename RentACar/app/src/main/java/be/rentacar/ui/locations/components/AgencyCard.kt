@@ -35,14 +35,14 @@ fun AgencyCard(
     ) {
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))) {
             Text(
-                text = agency.cityName,
+                text = agency.companyName,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_tiny)))
 
             Text(
-                text = agency.country,
+                text = "${agency.cityName}, ${agency.country}",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
             )

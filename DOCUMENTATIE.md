@@ -2,7 +2,7 @@
 
 ## 1. Algemene beschrijving
 
-Rent-a-Car is een Android applicatie voor het huren van auto's. De gebruiker kan zich aanmelden met Google, beschikbare wagens bekijken, filteren, sorteren, reserveren en bestaande reservaties beheren. De app communiceert met een PHP backend via Retrofit en gebruikt Firebase Authentication voor Google login.
+Rent-a-Car is een Android applicatie voor het huren van auto's. De gebruiker kan zich aanmelden met Google, beschikbare wagens bekijken, filteren, sorteren, reserveren en bestaande reservaties beheren. De app communiceert voor wagens en reservaties met een PHP backend via Retrofit, gebruikt lokale data voor locaties en gebruikt Firebase Authentication voor Google login.
 
 Het project werd gemaakt voor het vak Advanced Web and Mobile binnen de opleiding Toegepaste Informatica aan Odisee.
 
@@ -51,9 +51,9 @@ De app volgt een eenvoudige MVVM-achtige structuur:
 ```text
 UI Composables
   -> ViewModel
-    -> Retrofit API service
-      -> PHP backend
-        -> database
+    -> Retrofit API service of lokale data
+      -> PHP backend / lokale Kotlin lijst
+        -> database / vaste app data
 ```
 
 Voor login:
@@ -69,10 +69,14 @@ LoginScreen
 Voor data:
 
 ```text
-HomeScreen / BookingScreen / MyBookingsScreen / LocationsScreen
+HomeScreen / BookingScreen / MyBookingsScreen
   -> eigen ViewModel
     -> RentACarApi.retroFitService
       -> RentACarApiService endpoints
+
+LocationsScreen
+  -> LocationsViewModel
+    -> LocalAgencyData
 ```
 
 ## 6. Belangrijke flows
@@ -128,8 +132,8 @@ HomeScreen / BookingScreen / MyBookingsScreen / LocationsScreen
 
 ### 6.6 Locaties bekijken
 
-1. `LocationsViewModel` haalt agentschappen op via `getAgencies()`.
-2. `LocationsScreen` toont alle agentschappen.
+1. `LocationsViewModel` haalt agentschappen op uit `LocalAgencyData`.
+2. `LocationsScreen` toont alle lokale agentschappen.
 3. Bij klik op "Open in Google Maps" wordt een Android intent gestart.
 
 ### 6.7 Profiel en uitloggen
@@ -169,6 +173,10 @@ Bevat alles rond Firebase Authentication en Google Sign-In.
 ### 8.2 `model`
 
 Bevat alle data classes die de JSON-data van de backend voorstellen.
+
+### 8.2.1 `data`
+
+Bevat lokale data die in de app zelf staat. Dit wordt momenteel gebruikt voor de locaties omdat de API-koppeling voor agentschappen niet op tijd klaar was.
 
 ### 8.3 `navigation`
 
@@ -210,12 +218,19 @@ Data class voor een agentschap of vestiging.
 Velden:
 
 - `agencyId`
+- `companyName`
 - `cityName`
 - `country`
 - `latitude`
 - `longitude`
 
-Wordt gebruikt in het locatiescherm.
+Wordt gebruikt in het locatiescherm. Voor locaties komt deze data momenteel uit `LocalAgencyData`.
+
+### `data/LocalAgencyData.kt`
+
+Bevat een vaste lijst met lokale agentschappen in verschillende Belgische steden.
+
+Deze lokale oplossing werd gebruikt omdat de API-koppeling voor locaties niet op tijd klaar was. Als uitbreiding kan later een backend endpoint toegevoegd worden zodat deze locaties uit de database komen.
 
 ### `model/Booking.kt`
 
@@ -365,12 +380,13 @@ Retrofit interface met alle backend endpoints.
 
 Endpoints:
 
-- `GET get_agencies.php`
 - `GET get_cars.php`
 - `GET get_my_bookings.php?google_id=...`
 - `POST create_booking.php`
 - `POST update_booking.php`
 - `POST delete_booking.php`
+
+Opmerking: locaties worden momenteel lokaal geladen via `LocalAgencyData`. Een endpoint zoals `get_agencies.php` kan later als uitbreiding toegevoegd worden.
 
 ### `ui/auth/LoginViewModel.kt`
 
@@ -616,8 +632,8 @@ ViewModel voor agentschappen.
 
 Taken:
 
-- Agentschappen ophalen via backend.
-- Loading, success en error state beheren.
+- Agentschappen ophalen uit lokale data.
+- Success state beheren.
 - Refresh ondersteunen.
 
 ### `ui/locations/LocationsScreen.kt`
@@ -636,8 +652,8 @@ Kaart voor een agentschap.
 
 Toont:
 
-- stad
-- land
+- bedrijfsnaam
+- stad en land
 - coordinaten
 - knop om te openen in Google Maps
 
@@ -867,7 +883,7 @@ cd RentACar
 
 ## 13. Backend communicatie
 
-De backend is een PHP API.
+De backend is een PHP API voor wagens en reservaties.
 
 Base URL:
 
@@ -878,7 +894,6 @@ http://mohamedaminehssinoui-odiseebe.webhosting.be/api/
 Endpoints:
 
 ```text
-get_agencies.php
 get_cars.php
 get_my_bookings.php
 create_booking.php
@@ -887,6 +902,8 @@ delete_booking.php
 ```
 
 Retrofit converteert JSON automatisch naar Kotlin data classes.
+
+Locaties worden momenteel niet via de backend opgehaald. Ze staan lokaal in `LocalAgencyData.kt`. Dit kan later uitgebreid worden met een extra endpoint voor agentschappen.
 
 ## 14. State management
 
@@ -985,9 +1002,10 @@ Voor Google login moet de SHA-1 van de computer waarmee je buildt in Firebase st
 - Unit tests uitbreiden voor ViewModels.
 - UI tests toevoegen voor reservatieflow.
 - HTTPS backend gebruiken in plaats van HTTP.
+- Endpoint toevoegen voor locaties/agentschappen in plaats van lokale data.
 - Meertaligheid toevoegen.
 - Offline caching toevoegen.
 
 ## 20. Korte conclusie
 
-Rent-a-Car is een volledige Android applicatie met login, backendcommunicatie, filtering, reservaties, bewerken, verwijderen, delen, locaties en profielbeheer. De app gebruikt moderne Android technologieen zoals Jetpack Compose, ViewModel, StateFlow, Retrofit en Firebase Authentication.
+Rent-a-Car is een volledige Android applicatie met login, backendcommunicatie voor wagens en reservaties, filtering, reservaties, bewerken, verwijderen, delen, lokale locaties en profielbeheer. De app gebruikt moderne Android technologieen zoals Jetpack Compose, ViewModel, StateFlow, Retrofit en Firebase Authentication.

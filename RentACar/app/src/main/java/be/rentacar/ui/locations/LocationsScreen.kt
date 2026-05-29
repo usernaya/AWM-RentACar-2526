@@ -155,7 +155,7 @@ private fun LocationsScreenContent(
 private fun openInGoogleMaps(context: Context, agency: Agency) {
     val gmmIntentUri = Uri.parse(
         "geo:${agency.latitude},${agency.longitude}" +
-            "?q=${Uri.encode("${agency.cityName}, ${agency.country}")}"
+            "?q=${Uri.encode("${agency.companyName}, ${agency.cityName}, ${agency.country}")}"
     )
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
     mapIntent.setPackage("com.google.android.apps.maps")
